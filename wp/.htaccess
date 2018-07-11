@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+#ErrorDocument 404 http://www.reform-station.co.jp/index.php
+
+# reform-station
+RewriteCond %{HTTP_HOST} ^reform-station\.co\.jp$
+RewriteCond %{HTTP_HOST} ^www.reform-station\.co\.jp$
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{REQUEST_URI} !^/wp/.*$
+RewriteRule ^(.*)$ https://www.reform-station.co.jp/$1 [R=301,L]
+
+#WP設定
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
